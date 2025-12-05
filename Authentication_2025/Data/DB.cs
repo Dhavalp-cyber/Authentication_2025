@@ -11,7 +11,7 @@ namespace Authentication_2025.Data
             
         }
 
-        public DB(DbContextOptions<DB> options) : base(options)
+        public DB(DbContextOptions<DB> options) : base(options)  
         {
             
         }
