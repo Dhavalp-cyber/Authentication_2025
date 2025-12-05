@@ -1,0 +1,102 @@
+﻿@model Authentication_2025.Models.Fruit_Table
+@{
+    ViewData["Title"] = "Edit";
+}
+<h1>Edit</h1>
+
+<form method="post" asp-action="Edit">
+
+    <div class="border p-3">
+
+        <div class="form-group row">
+
+            <h2 class="text-info pl-3">Add Sweet</h2>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-8">
+
+                <div class="from-group row">
+
+                    <div class="col-4">
+
+                        <lable>User :</lable>
+                    </div>
+                    <br />
+                    <div class="col-8">
+
+
+
+
+                        <select asp-for="UserOfFruit" class="form-control"
+                                asp-items="@(new SelectList(ViewBag.UserList, "Username", "Username"))">
+                            <option value="">-- Select User --</option>
+                        </select>
+
+
+
+                    </div>
+                    <br />
+
+                    <div class="from-group row">
+
+                        <div class="col-4">
+
+                            <lable>Fruits Name :</lable>
+                        </div>
+                        <br />
+                        <div class="col-8">
+
+                            <input asp-for="FruitName" class="form-control" />
+
+                        </div>
+
+                    </div>
+                    <br />
+                    <div class="from-group row">
+
+                        <div class="col-4">
+
+                            <label>Quentity : </label>
+
+                        </div>
+
+                        <div class="col-8">
+
+                            <input asp-for="Quantity" class="form-control" />
+
+                        </div>
+                    </div>
+                    <br />
+                    <div class="from-group row">
+
+                        <div class="col-8 offset-4 row">
+
+                            <div class="col">
+
+                                <input type="submit" class="btn btn-info w-100" value="save" />
+
+                            </div>
+
+                            <div class="col">
+
+                                <a asp-action="Index" class="btn btn-success w-100">Back</a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</form>
+
+
+

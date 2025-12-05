@@ -1,0 +1,131 @@
+﻿@model IEnumerable<Authentication_2025.Models.Fruit_Table>
+
+@{
+    ViewData["Title"] = "Fruit Inventory";
+
+    var isLogin = Context.Request.Cookies["IsLogin"];
+    var email = Context.Request.Cookies["Email"];
+    var loggedUser = ViewBag.userdata as Authentication_2025.Models.User;
+}
+
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="stylesheet"
+      href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+
+<div class="container mt-5">
+
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-success">
+            <i class="fa-solid fa-apple-whole"></i> Fruit Inventory
+        </h2>
+
+        <a asp-action="create" class="btn btn-primary shadow-sm">
+            <i class="fa-solid fa-plus"></i> Add Fruit
+        </a>
+
+
+    </div>
+
+    <!-- Main Card -->
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body">
+
+            <table id="myTable" class="table table-hover align-middle" style="width: 100%">
+                <thead class="table-success text-center">
+                    <tr>
+                        <th>ID</th>
+                        @if (User.Identity.Name == "Admin")
+                        {
+                            <th>User</th>
+                        }
+                        <th>Fruit Name</th>
+                        <th>Quantity</th>
+                        @if (User.Identity.Name == "Admin")
+                        {
+                            <th class="text-center">Actions</th>
+                        }
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+
+
+                            <tr>
+                                <td class="fw-bold">@item.Id</td>
+                                @if (User.Identity.Name == "Admin")
+                                {
+                                    <td>@item.UserOfFruit</td>
+                                }
+                                <td>@item.FruitName</td>
+                                <td>
+                                    <span class="badge bg-primary px-3 py-2">
+                                        <i class="fa-solid fa-boxes-stacked"></i> @item.Quantity
+                                    </span>
+                                </td>
+                                @if (User.Identity.Name == "Admin")
+                                {
+                                    <!-- Action Buttons -->
+                                    <td class="text-center">
+                                        <div class="btn-group">
+
+                                            <!-- View Button -->
+                                            <a asp-controller="main"
+                                               asp-action="view"
+                                               asp-route-Id="@item.Id"
+                                               class="btn btn-sm btn-info text-white mx-1 shadow-sm">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
+
+                                            <!-- Edit Button -->
+                                            <a asp-controller="main"
+                                               asp-action="Edit"
+                                               asp-route-Id="@item.Id"
+                                               class="btn btn-sm btn-warning text-dark mx-1 shadow-sm">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+
+                                            <!-- Delete Button -->
+                                            <a asp-controller="main"
+                                               asp-action="Delete"
+                                               asp-route-Id="@item.Id"
+                                               class="btn btn-sm btn-danger mx-1 shadow-sm">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </a>
+
+                                        </div>
+                                    </td>
+                                }
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- DataTable Script -->
+@section Scripts {
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "pageLength": 10,
+                "lengthMenu": [5, 10, 25],
+                "responsive": true,
+                "ordering": true
+            });
+        });
+    </script>
+}

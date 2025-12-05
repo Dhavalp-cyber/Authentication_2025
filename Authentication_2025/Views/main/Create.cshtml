@@ -1,0 +1,96 @@
+﻿@model Authentication_2025.Models.Fruit_Table
+@{
+	ViewData["Title"] = "Create";
+
+}
+
+<h1>Create</h1>
+
+<form method="post" asp-action="Create">
+
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+	<div class="border p-3">
+
+		<div class="form-group row">
+
+			<h2 class="text-info pl-3">Add Fruits </h2>
+
+		</div>
+
+		<div class="row">
+
+			<div class="col-8">
+
+				<div class="from-group row">
+
+					<div class="col-4">
+
+						<lable>User : </lable>
+
+					</div>
+					<div class="col-8">
+
+						<select asp-for="UserOfFruit" class="form-control"
+								asp-items="@(new SelectList(ViewBag.UserList, "Username", "Username"))">
+							<option value="">-- Select User --</option>
+						</select>
+
+					</div>
+				</div>
+				<br />
+
+				<div class="from-group row">
+
+					<div class="col-4">
+
+						<lable>Fruit Name</lable>
+
+					</div>
+					<div class="col-8">
+
+						<input asp-for="FruitName" class="form-control" />
+
+					</div>
+				</div>
+				<br />
+				<div class="from-group row">
+
+					<div class="col-4">
+
+						<lable>Quentity</lable>
+
+					</div>
+					<div class="col-8">
+
+						<input asp-for="Quantity" class="form-control" />
+
+
+					</div>
+				</div>
+				<br />
+				<div class="from-group row">
+
+					<div class="col-8 offset-4 row">
+
+						<div class="col">
+
+							<input type="submit" class="btn btn-info w-100" value="create" />
+
+						</div>
+
+						<div class="col">
+
+							<a asp-action="Index" class="btn btn-success w-100">back</a>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+
+</form>

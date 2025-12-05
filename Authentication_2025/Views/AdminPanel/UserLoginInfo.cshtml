@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Authentication_2025.Models.LoginLogoutiInfo>
+
+@{
+    ViewData["Title"] = "User Login History";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary">
+            <i class="fa-solid fa-clock-rotate-left"></i> User Login History
+        </h2>
+        <a asp-controller="AdminPanel" asp-action="GetData" class="btn btn-secondary shadow-sm">
+            <i class="fa-solid fa-arrow-left"></i> Back to User Management
+        </a>
+    </div>
+
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body">
+
+            <table class="table table-hover align-middle" id="myTable">
+                <thead class="table-primary">
+                    <tr>
+                        <th>#ID</th>
+                        <th>User Name</th>
+                        <th>Login Time</th>
+                        <th>Logout Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.UserId</td>
+                                <td>@item.User?.Username</td>
+
+                                <td>@item.LoginTime.ToString("dd-MMM-yyyy HH:mm:ss")</td>
+
+                                <td>
+                                    @if (item.LogoutTime.HasValue)
+                                    {
+                                        @item.LogoutTime.Value.ToString("dd-MMM-yyyy HH:mm:ss")
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Currently Logged In</span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (item.LogoutTime.HasValue)
+                                    {
+                                        <span class="badge bg-success">Logout</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning text-dark">Login</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-info fw-bold text-center">
+                                <i class="fa-solid fa-info-circle"></i> No user login history found.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "pageLength": 10,
+                "lengthMenu": [5, 10, 25],
+                "ordering": true,
+                "responsive": true
+            });
+        });
+    </script>
+}

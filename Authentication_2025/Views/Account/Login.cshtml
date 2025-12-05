@@ -1,0 +1,112 @@
+﻿@model Authentication_2025.Models.LoginSignUpViewModel
+
+<div class="container">
+
+    <div class="row mt-lg-5">
+
+        <div class="col-4 offset-4 border border-primary rounded pl-5 pr-5 pb-5">
+            <div class="text-center">
+                <a class="text-light btn btn-primary font-weight-bold" asp-action="SignUp" asp-controller="Account">Sign Up</a>
+            </div>
+            <h6>@ViewBag.Password</h6>
+            <h6 class="text-success text-center">@TempData["successMessage"]</h6>
+            <h6 class="text-danger text-center">@TempData["errorAccountInactive"]</h6>
+            <h6 class="text-danger text-center">@TempData["AccountLocked"] </h6>
+            <form method="post" asp-action="Login">
+                <div class="form-group">
+                    <label asp-for="Username"></label>
+                    <input type="text" asp-for="Username" placeholder="Enter Username" class="form-control" autocomplete="off" id="username" />
+                    <span class="text-danger">@TempData["errorUsername"]</span>
+                    <br />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input id="password" type="password" asp-for="Password" placeholder="Enter Password" class="form-control" autocomplete="off">
+                    <i id="open" class="fa fa-eye float-end" aria-hidden="true" style="margin-top:-25px; margin-right:6px;cursor:pointer"></i>
+                    <i id="closed" class="fa fa-eye-slash float-end" aria-hidden="true" style="margin-top:-25px; margin-right:6px;display:none; cursor:pointer"></i>
+                    <span class="text-danger">@TempData["errorPassword"]</span>
+
+                    <br />
+
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="remember" />
+                    <label asp-for="IsRemember"></label>
+                </div>
+                <div class="form-group">
+                    <br />
+                    <input type="submit" class="btn btn-block btn-primary mb-2 w-100" value="Log In" />
+                </div>
+                <br />
+            </form>
+            <div class="text-center">
+                <a class="text-primary" asp-action="ForgotUsername">Forgot Username?</a>&nbsp;
+                <a class="text-primary" asp-controller="ForgotPassword" asp-action="Index">Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+@section scripts
+{
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#open").click(function () {
+                $("#open").hide();
+                $("#closed").show();
+                $("#password").attr("type", "text");
+            });
+            $("#closed").click(function () {
+                $("#closed").hide();
+                $("#open").show();
+                $("#password").attr("type", "password");
+            });
+
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            // Password Show/Hide
+            $("#open").click(function () {
+                $("#open").hide();
+                $("#closed").show();
+                $("#password").attr("type", "text");
+            });
+            $("#closed").click(function () {
+                $("#closed").hide();
+                $("#open").show();
+                $("#password").attr("type", "password");
+            });
+
+            // Autofill from Cookies
+            if (localStorage.getItem("rememberMe") === "true") {
+                $("#username").val(localStorage.getItem("username"));
+                $("#password").val(localStorage.getItem("password"));
+                $("#remember").prop("checked", true);
+            }
+
+            // On form submit
+            $("form").submit(function () {
+                if ($("#remember").is(":checked")) {
+                    localStorage.setItem("username", $("#username").val());
+                    localStorage.setItem("password", $("#password").val());
+                    localStorage.setItem("rememberMe", true);
+                } else {
+                    localStorage.removeItem("username");
+                    localStorage.removeItem("password");
+                    localStorage.removeItem("rememberMe");
+                }
+            });
+
+        });
+    </script>
+
+}

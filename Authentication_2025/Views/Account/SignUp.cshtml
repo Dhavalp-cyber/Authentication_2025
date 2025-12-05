@@ -1,0 +1,106 @@
+﻿@model Authentication_2025.Models.SignUpUserViewModel
+@{
+    ViewData["Title"] = "SignUp";
+    Layout = "~/Views/Shared/_Layout_Login.cshtml";
+}
+
+<div class="container">
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-6 offset-3 border border-info rounded pl-5 pr-5 pb-5 mt-2">
+            <div class="text-center">
+                <h1 class="text-info">User Registration Form</h1>
+            </div>
+            <h3 class="text-danger text-center">@TempData["errorMessage"] </h3>
+            <form method="post" asp-action="SignUp">
+                <div class="form-group ">
+                    <label asp-for="Username"></label>
+                    <input type="text" asp-for="Username" placeholder="Enter username" class="form-control" autocomplete="off" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                    <br />
+                </div>
+                <div class="form-group ">
+                    <label asp-for="Email"></label>
+                    <input type="text" asp-for="Email" placeholder="Enter email" class="form-control" autocomplete="off" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+
+                    <br />
+
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Mobile"></label>
+                    <input type="text" asp-for="Mobile" placeholder="Enter mobile number" class="form-control" autocomplete="off" />
+                    <span asp-validation-for="Mobile" class="text-danger"></span>
+
+                    <br />
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Roles"></label>
+                    <select asp-for="Roles" class="form-control">
+                        <option>--Select--</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Employee">Employee</option>
+                    </select>
+                    <span asp-validation-for="Roles" class="text-danger"></span>
+
+                    <br />
+
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label asp-for="Password"></label>
+                        <input type="password" asp-for="Password" placeholder="Enter Password" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="ConfirmPassword"></label>
+                        <input type="password" asp-for="ConfirmPassword" placeholder="Confirm Password" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+                        <br />
+                    </div>
+                </div>
+
+                @*  <div class="form-group ">
+                <label asp-for="Password"></label>
+                <input type="password" asp-for="Password" placeholder="Enter Password" class="form-control" autocomplete="off" />
+                <br />
+
+                </div>
+                <div class="form-group ">
+                <label asp-for="ConfirmPassword"></label>
+                <input type="text" asp-for="ConfirmPassword" placeholder="Confirm Password" class="form-control" autocomplete="off" />
+                <br />
+
+                </div> *@
+                <div class="form-group">
+                    <label asp-for="IsActive"></label>
+                    @*                     <input type="checkbox" checked="checked" asp-for="IsActive" />
+ *@  
+                    <select asp-for="IsActive" class="form-control-sm">
+                        <option selected disabled>--Select Option--</option>
+                        <option value="True">Active</option>
+                        <option value="False">Not Active</option>
+
+                    </select>
+                    <br />
+                </div>
+                </<div class="form-group">
+                    <input type="submit" class="btn btn-outline-success btn-lg mb-1" style="float:right;" value="Registration" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@* <a href="~/lib/jquery/dist/jquery.min.map">~/lib/jquery/dist/jquery.min.map</a>
+ *@
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>

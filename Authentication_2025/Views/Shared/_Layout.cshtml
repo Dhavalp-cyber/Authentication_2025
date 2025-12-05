@@ -1,0 +1,129 @@
+﻿@{
+    var isLogin = Context.Request.Cookies["IsLogin"];
+    var email = Context.Request.Cookies["Username"];
+    var loggedUser = ViewBag.userdata as Authentication_2025.Models.User;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Authentication_2025</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Authentication_2025.styles.css" asp-append-version="true" />
+</head>
+<body class="bg-light">
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+            <div class="container-fluid">
+
+                <!-- Brand -->
+                <a class="navbar-brand fw-bold fs-4" asp-controller="Home" asp-action="Index">
+                    <i class="fa-solid fa-shield-halved"></i> Authentication 2025
+                </a>
+
+                <!-- Toggle Button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Links -->
+                <div class="collapse navbar-collapse" id="mainNavbar">
+
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white fw-semibold" asp-controller="Home" asp-action="Index">
+                                <i class="fa-solid fa-house"></i> Home
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white fw-semibold" asp-controller="Home" asp-action="Privacy">
+                                <i class="fa-solid fa-lock"></i> Privacy
+                            </a>
+                        </li>
+
+                        @if (User.Identity.Name == "Admin")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-semibold" asp-controller="AdminPanel" asp-action="GetData">
+                                    <i class="fa-solid fa-user-gear"></i> Admin Panel
+                                </a>
+                                                               
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-semibold" asp-controller="AdminPanel" asp-action="UserLoginInfo">
+                                     User Login Info
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-semibold" asp-controller="AdminPanel" asp-action="AdminLoginInfo">
+                                    Login Info
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+
+                    <!-- Right Side -->
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="d-flex align-items-center">
+
+                            <a asp-controller="Home" asp-action="Profile" class="btn btn-light rounded-circle d-flex align-items-center px-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person me-1">
+                                    <path d="M8 8a3 3 0 1 0-3-3 3 3 0 0 0 3 3" />
+                                    <path d="M14 14s-1-4-6-4-6 4-6 4 3 1 6 1 6-1 6-1" />
+                                </svg>
+                                <span class="fw-bold">@User.Identity.Name</span>
+                            </a>
+
+
+                            <a class="btn btn-warning btn-sm fw-semibold" asp-controller="Account" asp-action="LogOut">
+                                <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <a class="btn btn-light btn-sm fw-semibold" asp-controller="Account" asp-action="Login">
+                            <i class="fa-solid fa-right-to-bracket"></i> Login
+                        </a>
+                    }
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN BODY -->
+    <div class="container my-10">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer bg-primary text-white py-0 mt-5 shadow-sm">
+        <div class="container text-center">
+            © 2025 - Authentication_2025 •
+            <a asp-controller="Home" asp-action="Privacy" class="text-warning text-decoration-none">
+                Privacy Policy
+            </a>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>

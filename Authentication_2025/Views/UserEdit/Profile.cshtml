@@ -1,0 +1,74 @@
+﻿@model Authentication_2025.Models.UserEditViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<h1>Profile</h1>
+
+<h4>User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="Profile">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UserId" />
+            <div class="mb-3">
+                <label asp-for="Username" class="form-label fw-bold"></label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+                    <input asp-for="Username" class="form-control" placeholder="Enter username" />
+                </div>
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label fw-bold"></label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light">
+                        <i class="fa-solid fa-envelope"></i>
+                    </span>
+                    <input asp-for="Email" class="form-control" placeholder="Enter email" />
+                </div>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <!-- Mobile -->
+            <div class="mb-3">
+                <label asp-for="Mobile" class="form-label fw-bold"></label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light">
+                        <i class="fa-solid fa-phone"></i>
+                    </span>
+                    <input asp-for="Mobile" class="form-control" placeholder="Enter mobile number" />
+                </div>
+                <span asp-validation-for="Mobile" class="text-danger"></span>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label fw-bold"></label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light">
+                        <i class="fa-solid fa-lock"></i>
+                    </span>
+                    <input asp-for="Password" class="form-control" placeholder="Enter new password" />
+                </div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fa-solid fa-floppy-disk"></i> Save Changes
+                </button>
+
+                <a asp-controller="main" asp-action="Index" >Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

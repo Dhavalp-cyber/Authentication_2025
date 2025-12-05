@@ -1,0 +1,145 @@
+﻿@model IEnumerable<Authentication_2025.Models.User>
+
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
+
+<div class="container mt-4">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold text-primary mb-0">
+            <i class="fa-solid fa-users-gear"></i> Manage Users
+        </h3>
+
+        <a asp-controller="Account"
+           asp-action="SignUp"
+           class="btn btn-success">
+            <i class="fa-solid fa-user-plus"></i> Add User
+        </a>
+    </div>
+
+    <!-- Card -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-striped table-hover table-bordered align-middle text-center" id="myTable">
+
+                    <thead class="table-primary">
+                        <tr>
+                            <th>#ID</th>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Password</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (User.Identity.Name == "Admin")
+                        {
+                            if (Model != null && Model.Any())
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr class="@(item.IsActive ? "" : "table-danger")">
+
+                                        <td>@item.UserId</td>
+                                        <td>@item.Username</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.Mobile</td>
+
+                                        <!-- Password masked only Bootstrap -->
+                                        <td>
+                                            <span class="text-muted">••••••••</span>
+                                        </td>
+
+                                        <td>
+                                            @if (item.IsActive)
+                                            {
+                                                <span class="badge bg-success">
+                                                    <i class="fa-solid fa-circle-check"></i> Active
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-danger">
+                                                    <i class="fa-solid fa-circle-xmark"></i> Not Active
+                                                </span>
+                                            }
+                                        </td>
+
+                                        <td>
+                                            <div class="btn-group" role="group">
+
+                                                <!-- Edit -->
+                                                <a asp-controller="AdminPanel"
+                                                   asp-action="Edit"
+                                                   asp-route-UserId="@item.UserId"
+                                                   class="btn btn-sm btn-primary">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                </a>
+
+                                                <!-- View -->
+                                                <a asp-controller="AdminPanel"
+                                                   asp-action="ViewProfile"
+                                                   asp-route-UserId="@item.UserId"
+                                                   class="btn btn-sm btn-info text-white">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </a>
+
+                                                <!-- Delete -->
+                                                <a asp-controller="AdminPanel"
+                                                   asp-action="Delete"
+                                                   asp-route-UserId="@item.UserId"
+                                                   class="btn btn-sm btn-danger">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </a>
+
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7" class="text-danger fw-bold text-center">
+                                    <i class="fa-solid fa-ban"></i> You are not authorized to view this page.
+                                </td>
+                            </tr>
+                        }
+                        <a class="btn btn-outline-success" asp-action="Index" asp-controller="main">Inventory</a>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                pageLength: 10,
+                lengthMenu: [5, 10, 25],
+                ordering: true
+            });
+        });
+    </script>
+}
